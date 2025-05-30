@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoアプリ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        li {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .completed {
+            color: #888;
+            text-decoration: line-through;
+            }
+
+        .date {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        a {
+            margin-left: 10px;
+            font-size: 14px;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>ToDoリスト</h1>
+
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="タスクを入力" required>
+        <button type="submit">追加</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {% if task.done %}
+                    <span class="completed">{{ task.content }}</span>（完了）
+                {% else %}
+                    {{ task.content }}
+                    <a href="/complete/{{ task.id }}">[完了]</a>
+                {% endif %}
+                    <div class="date">追加日: {{ task.date }}</div>
+            </li>
+                {% endfor %}
+    </ul>
+
+</body>
+</html>
